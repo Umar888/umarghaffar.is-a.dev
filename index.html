@@ -290,6 +290,12 @@
   .oss-more { margin-top: 24px; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
   .oss-more .card-text { flex: 1 1 320px; }
 
+  .app-icon { width: 44px; height: 44px; border-radius: 12px; flex: none; display: block; background: color-mix(in srgb, var(--text) 6%, transparent); border: 1px solid var(--border); object-fit: cover; }
+  .play-btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px;
+    background: var(--text); color: var(--bg); font-weight: 600; font-size: 13px;
+  }
+  .play-btn:hover { text-decoration: none; opacity: .88; }
   /* Education */
   .edu { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
   .edu-list { display: grid; gap: 20px; }
@@ -598,8 +604,33 @@
   <div class="wrap">
     <p class="eyebrow">Projects</p>
     <h2>Selected work</h2>
-    <p class="section-lede">A few of the apps I've built or led. Most are client builds, so there's no public link for them.</p>
+    <p class="section-lede">Apps I've built or led. The ones on Google Play are linked; the rest are client builds without a public listing.</p>
     <div class="projects">
+      <article class="card project reveal">
+        <div class="project-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/9LdwCReaQGDIS6jHzQN7Zn6fNSzUzJYUboZ2_et_NpgHWefQjshFE-iCMilSLig73o_uH1SCU-NlCcpXpRAD=w128" width="44" height="44" alt="TAVRTalk app icon" loading="lazy" referrerpolicy="no-referrer"><div><h3>TAVRTalk</h3><span class="kind">React Native · Medical</span></div></div>
+        <p>Edwards Lifesciences' community app where Valve Clinical Coordinators trade questions, find TAVR resources and reach peers. Real-time discussions, secure sign-in and role-based access.</p>
+        <div class="project-foot"><a class="play-btn" href="https://play.google.com/store/apps/details?id=com.tavrtalk.app"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8a1 1 0 0 0-.5.87v16.66a1 1 0 0 0 1.5.87l14.4-8.33a1 1 0 0 0 0-1.74L5.5 2.8a1 1 0 0 0-1 0Z"/></svg>Google Play</a></div>
+      </article>
+      <article class="card project reveal">
+        <div class="project-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/7DTrWqg_-Odn5lYmjzDjASG6jWDuutrlJ1dq59QNpSRixizvGDkem6x6fqGKs_cVQc9r8-evY_xBGSHd6Fu99g=w128" width="44" height="44" alt="Muslimeen app icon" loading="lazy" referrerpolicy="no-referrer"><div><h3>Muslimeen: Athan, Quran, Qibla</h3><span class="kind">Flutter · Lifestyle</span></div></div>
+        <p>Ad-free Islamic companion with prayer times, configurable adhan alerts, Quran reading and audio, and Qibla direction from the device sensors.</p>
+        <div class="project-foot"><a class="play-btn" href="https://play.google.com/store/apps/details?id=com.fortune.apps.muslimeen"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8a1 1 0 0 0-.5.87v16.66a1 1 0 0 0 1.5.87l14.4-8.33a1 1 0 0 0 0-1.74L5.5 2.8a1 1 0 0 0-1 0Z"/></svg>Google Play</a></div>
+      </article>
+      <article class="card project reveal">
+        <div class="project-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/s7YVhOIIxGsJ9JyYEt9is-d7rODtFlX8ACumVt-Pmsaghbr-_JyLRfxpJqlk5I0HXprBM4Fh_Q8xr4WVftAa8g=w128" width="44" height="44" alt="AppTak app icon" loading="lazy" referrerpolicy="no-referrer"><div><h3>AppTak Online Shopping</h3><span class="kind">Shopping</span></div></div>
+        <p>Online marketplace from Muller &amp; Phipps Pakistan for electronics, home appliances, phones and groceries, with cash on delivery or online payment.</p>
+        <div class="project-foot"><a class="play-btn" href="https://play.google.com/store/apps/details?id=muller.phipps.pakistan.apptak.pk"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8a1 1 0 0 0-.5.87v16.66a1 1 0 0 0 1.5.87l14.4-8.33a1 1 0 0 0 0-1.74L5.5 2.8a1 1 0 0 0-1 0Z"/></svg>Google Play</a></div>
+      </article>
+      <article class="card project reveal">
+        <div class="project-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/tFwOEUvxgCWrPkVuoZB6FnkGJWVG3yp-zR75AabB4jYC3Atqzr0rS_TY6XpDgLCQGqklAygT2fi3bbZxyEGpDg=w128" width="44" height="44" alt="Clique app icon" loading="lazy" referrerpolicy="no-referrer"><div><h3>Clique: Friends Group Chat</h3><span class="kind">Social</span></div></div>
+        <p>A private group chat for friend groups, clubs and teams, built around a daily conversation prompt, streaks and planning events together.</p>
+        <div class="project-foot"><a class="play-btn" href="https://play.google.com/store/apps/details?id=com.joinmyclique.app"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8a1 1 0 0 0-.5.87v16.66a1 1 0 0 0 1.5.87l14.4-8.33a1 1 0 0 0 0-1.74L5.5 2.8a1 1 0 0 0-1 0Z"/></svg>Google Play</a></div>
+      </article>
+      <article class="card project reveal">
+        <div class="project-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/4Bn_XQ1VS9V8QphPb5ZbA1SPgg-33ArfUgr9DzGToVgCt0DR_muTYfAc5YO6Q2xKmZpkUsVL2_BCK4wF6TAJ=w128" width="44" height="44" alt="Alliance TrueCare app icon" loading="lazy" referrerpolicy="no-referrer"><div><h3>Alliance TrueCare</h3><span class="kind">Health &amp; fitness</span></div></div>
+        <p>Remote patient monitoring companion that pairs over Bluetooth with blood pressure monitors, glucometers, pulse oximeters, scales and thermometers so patients and care teams can track vitals.</p>
+        <div class="project-foot"><a class="play-btn" href="https://play.google.com/store/apps/details?id=com.truecareccm"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8a1 1 0 0 0-.5.87v16.66a1 1 0 0 0 1.5.87l14.4-8.33a1 1 0 0 0 0-1.74L5.5 2.8a1 1 0 0 0-1 0Z"/></svg>Google Play</a></div>
+      </article>
       <article class="card project reveal">
         <div class="project-head"><div class="mono-badge" aria-hidden="true">FP</div><div><h3>Friday POS</h3><span class="kind">Android</span></div></div>
         <p>Android POS platform with payments, inventory and order workflows, Firebase/Pusher real-time sync, Square payments, offline mode and dynamic menus. More efficient state management cut unnecessary API traffic by 30%.</p>
@@ -608,16 +639,6 @@
       <article class="card project reveal">
         <div class="project-head"><div class="mono-badge" aria-hidden="true">OT</div><div><h3>OTT Streaming Platform</h3><span class="kind">Android</span></div></div>
         <p>Streaming app on ExoPlayer with HLS, DASH and RTMP: adaptive playback, Widevine/PlayReady DRM, caching, authentication, recommendations and offline downloads.</p>
-        <div class="project-foot"><span class="badge">Client build</span></div>
-      </article>
-      <article class="card project reveal">
-        <div class="project-head"><div class="mono-badge" aria-hidden="true">MA</div><div><h3>Muslimeen App</h3><span class="kind">Flutter</span></div></div>
-        <p>Islamic companion app with prayer times, configurable adhan alerts, Quran reading and audio, Qibla direction from device sensors, daily duas and hadith.</p>
-        <div class="project-foot"><span class="badge">Client build</span></div>
-      </article>
-      <article class="card project reveal">
-        <div class="project-head"><div class="mono-badge" aria-hidden="true">ET</div><div><h3>Edwards TAVR Talk</h3><span class="kind">React Native</span></div></div>
-        <p>Medical community app with real-time discussions, secure authentication, role-based access, responsive UI and performance-focused data handling.</p>
         <div class="project-foot"><span class="badge">Client build</span></div>
       </article>
       <article class="card project reveal">
