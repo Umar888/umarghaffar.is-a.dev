@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Umar Ghaffar · Flutter packages</title>
+<meta name="description" content="Open source Flutter packages by Umar Ghaffar: scroll_edge_blur, liquid_glass_navigation and smart_signature. Verified publisher umarghaffar.is-a.dev on pub.dev.">
+<meta property="og:title" content="Umar Ghaffar · Flutter packages">
+<meta property="og:description" content="Polished, high-performance Flutter UI packages: progressive edge blur, Liquid Glass navigation and smart signature capture.">
+<meta property="og:url" content="https://umarghaffar.is-a.dev/">
+<meta property="og:image" content="https://raw.githubusercontent.com/Umar888/scroll_edge_blur/main/doc/demo.gif">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --text: #0d1020;
+    --muted: #5a6075;
+    --border: #e3e6ef;
+    --accent: #5b5bf7;
+    --accent-2: #13b5c8;
+    --accent-3: #f25fa6;
+    --code-bg: #0f1222;
+    --code-text: #e6e8f2;
+    --nav-tint: rgba(246, 247, 251, 0.55);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #07080f;
+      --surface: #10121d;
+      --text: #eef0f8;
+      --muted: #9aa0b7;
+      --border: #22263a;
+      --accent: #8a8aff;
+      --accent-2: #3fd6e6;
+      --accent-3: #ff7cbc;
+      --code-bg: #0b0d18;
+      --code-text: #e6e8f2;
+      --nav-tint: rgba(7, 8, 15, 0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #07080f;
+    --surface: #10121d;
+    --text: #eef0f8;
+    --muted: #9aa0b7;
+    --border: #22263a;
+    --accent: #8a8aff;
+    --accent-2: #3fd6e6;
+    --accent-3: #ff7cbc;
+    --code-bg: #0b0d18;
+    --code-text: #e6e8f2;
+    --nav-tint: rgba(7, 8, 15, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* Progressive blur under the nav */
+  .edge {
+    position: fixed; inset: 0 0 auto 0; height: 120px;
+    pointer-events: none; z-index: 40;
+  }
+  .edge > div { position: absolute; inset: 0; }
+  .edge > div:nth-child(1) { backdrop-filter: blur(1px);  -webkit-backdrop-filter: blur(1px);  mask: linear-gradient(to top, transparent 0%, #000 25%, #000 100%); -webkit-mask: linear-gradient(to top, transparent 0%, #000 25%, #000 100%); }
+  .edge > div:nth-child(2) { backdrop-filter: blur(3px);  -webkit-backdrop-filter: blur(3px);  mask: linear-gradient(to top, transparent 20%, #000 45%, #000 100%); -webkit-mask: linear-gradient(to top, transparent 20%, #000 45%, #000 100%); }
+  .edge > div:nth-child(3) { backdrop-filter: blur(6px);  -webkit-backdrop-filter: blur(6px);  mask: linear-gradient(to top, transparent 40%, #000 65%, #000 100%); -webkit-mask: linear-gradient(to top, transparent 40%, #000 65%, #000 100%); }
+  .edge > div:nth-child(4) { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); mask: linear-gradient(to top, transparent 60%, #000 85%); -webkit-mask: linear-gradient(to top, transparent 60%, #000 85%); }
+  .edge > div:nth-child(5) { background: linear-gradient(to bottom, var(--nav-tint), transparent); }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding-top: env(safe-area-inset-top);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 800; letter-spacing: -0.02em; color: var(--text); font-size: 17px; }
+  .brand span { color: var(--accent); }
+  .brand:hover { text-decoration: none; }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: var(--text); font-weight: 500; font-size: 14px;
+    padding: 8px 12px; border-radius: 999px;
+  }
+  .nav-links a:hover { background: color-mix(in srgb, var(--text) 8%, transparent); text-decoration: none; }
+  .theme-btn {
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px;
+  }
+
+  /* Hero */
+  .hero { position: relative; padding: 136px 0 72px; overflow: hidden; }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .blob.a { width: 420px; height: 420px; background: var(--accent); top: -80px; left: -120px; }
+  .blob.b { width: 360px; height: 360px; background: var(--accent-2); top: 120px; right: -100px; animation-delay: -6s; }
+  .blob.c { width: 300px; height: 300px; background: var(--accent-3); bottom: -120px; left: 35%; animation-delay: -12s; }
+  @keyframes drift { to { transform: translate(60px, 40px) scale(1.15); } }
+  @media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
+
+  .hero-inner { position: relative; max-width: 760px; }
+  .pill {
+    display: inline-flex; gap: 8px; align-items: center;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 14px; font-size: 13px; font-weight: 500; color: var(--muted);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .pill b { color: var(--accent); }
+  .pill svg { flex: none; }
+  h1 {
+    font-size: clamp(40px, 7vw, 72px); line-height: 1.02; letter-spacing: -0.04em;
+    margin: 20px 0 18px; font-weight: 800;
+  }
+  h1 .grad {
+    background: linear-gradient(100deg, var(--accent), var(--accent-3) 55%, var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lede { font-size: 19px; color: var(--muted); max-width: 600px; margin: 0 0 28px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 14px; font-weight: 600; font-size: 15px;
+    border: 1px solid var(--border); color: var(--text); background: var(--surface);
+    transition: transform .15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  h2 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 12px; }
+  .section-lede { color: var(--muted); max-width: 620px; margin: 0 0 36px; }
+
+  /* Package cards */
+  .packages { display: grid; gap: 24px; }
+  .pkg {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 0;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    overflow: hidden;
+  }
+  .pkg:nth-child(even) .pkg-media { order: 2; }
+  .pkg-media {
+    background: var(--code-bg); display: flex; align-items: center; justify-content: center;
+    min-height: 320px; padding: 24px;
+  }
+  .pkg-media img { display: block; max-width: 100%; max-height: 420px; border-radius: 14px; }
+  .pkg-body { padding: 32px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .pkg-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .pkg h3 { font: 600 22px/1.2 "JetBrains Mono", ui-monospace, monospace; margin: 0; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  .ver { font: 500 12px "JetBrains Mono", monospace; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+  .pkg p { margin: 0; color: var(--muted); }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tags span { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+  .install {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--code-bg); color: var(--code-text); border-radius: 12px;
+    padding: 10px 10px 10px 16px; font: 14px "JetBrains Mono", monospace;
+  }
+  .install code { overflow-x: auto; white-space: nowrap; }
+  .copy {
+    flex: none; border: 1px solid color-mix(in srgb, var(--code-text) 20%, transparent);
+    background: transparent; color: var(--code-text); border-radius: 8px;
+    font: 500 12px Inter, sans-serif; padding: 6px 10px; cursor: pointer;
+  }
+  .copy:hover { background: color-mix(in srgb, var(--code-text) 10%, transparent); }
+  .links { display: flex; gap: 16px; flex-wrap: wrap; font-weight: 500; font-size: 14px; margin-top: auto; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+  .card h3 { margin: 0 0 8px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .card li + li { margin-top: 6px; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 820px) {
+    .pkg { grid-template-columns: 1fr; }
+    .pkg:nth-child(even) .pkg-media { order: 0; }
+    .pkg-media { min-height: 0; }
+    .pkg-body { padding: 24px; }
+    .about { grid-template-columns: 1fr; }
+    .nav-links a.hide-sm { display: none; }
+    .hero { padding-top: 112px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="edge" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#">umarghaffar<span>.is-a.dev</span></a>
+    <div class="nav-links">
+      <a href="#packages">Packages</a>
+      <a class="hide-sm" href="#about">About</a>
+      <a class="hide-sm" href="https://github.com/Umar888">GitHub</a>
+      <button class="theme-btn" id="theme" aria-label="Toggle theme">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        Verified publisher on <b>pub.dev</b>
+      </span>
+      <h1>Flutter UI that feels <span class="grad">native</span>.</h1>
+      <p class="lede">I'm Umar Ghaffar, a senior mobile developer working in Flutter, native Android and React Native. These are my open source Flutter packages: polished effects built on shaders and custom painting, kept cheap enough to run every frame.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#packages">Browse packages</a>
+        <a class="btn" href="https://pub.dev/publishers/umarghaffar.is-a.dev/packages">pub.dev publisher</a>
+        <a class="btn" href="https://github.com/Umar888">GitHub</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="packages">
+  <div class="wrap">
+    <p class="eyebrow">Packages</p>
+    <h2>Three packages, one goal: native-quality polish</h2>
+    <p class="section-lede">All MIT licensed, with full pub points, runnable examples and no native code to set up.</p>
+
+    <div class="packages">
+      <article class="pkg">
+        <div class="pkg-media">
+          <img src="https://raw.githubusercontent.com/Umar888/scroll_edge_blur/main/doc/demo.gif" alt="scroll_edge_blur demo: content blurring progressively under a toolbar while scrolling" loading="lazy">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-head"><h3>scroll_edge_blur</h3><span class="ver">v0.1.1</span></div>
+          <p>Progressive, iOS style edge blur for scroll views, toolbars and headers. A GPU shader runs on the backdrop with no snapshots, so it stays cheap while scrolling.</p>
+          <div class="tags"><span>blur</span><span>shader</span><span>glassmorphism</span></div>
+          <div class="install"><code>flutter pub add scroll_edge_blur</code><button class="copy" data-copy="flutter pub add scroll_edge_blur">Copy</button></div>
+          <div class="links">
+            <a href="https://pub.dev/packages/scroll_edge_blur">pub.dev</a>
+            <a href="https://github.com/Umar888/scroll_edge_blur">GitHub</a>
+            <a href="https://umar888.github.io/scroll_edge_blur/">Project site</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-media">
+          <img src="https://raw.githubusercontent.com/Umar888/liquid_glass_navigation/main/doc/demo.gif" alt="liquid_glass_navigation demo: a floating glass bottom bar with a stretchy, draggable selection pill" loading="lazy">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-head"><h3>liquid_glass_navigation</h3><span class="ver">v0.1.1</span></div>
+          <p>iOS 26 style Liquid Glass navigation: a floating glass bottom bar, a glass side rail and an adaptive scaffold that switches between them, with a stretchy, draggable pill.</p>
+          <div class="tags"><span>navigation</span><span>bottom bar</span><span>glassmorphism</span></div>
+          <div class="install"><code>flutter pub add liquid_glass_navigation</code><button class="copy" data-copy="flutter pub add liquid_glass_navigation">Copy</button></div>
+          <div class="links">
+            <a href="https://pub.dev/packages/liquid_glass_navigation">pub.dev</a>
+            <a href="https://github.com/Umar888/liquid_glass_navigation">GitHub</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-media">
+          <img src="https://raw.githubusercontent.com/Umar888/smart_signature/main/doc/demo.gif" alt="smart_signature demo: a shaky hand-drawn signature cleaned up into smooth, pen-like ink" loading="lazy">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-head"><h3>smart_signature</h3><span class="ver">v0.1.0</span></div>
+          <p>A signature field that improves what you draw, entirely on-device: it removes jitter, pen hooks and stray marks, adds pen-like ink and levels the baseline.</p>
+          <div class="tags"><span>signature</span><span>handwriting</span><span>ink</span></div>
+          <div class="install"><code>flutter pub add smart_signature</code><button class="copy" data-copy="flutter pub add smart_signature">Copy</button></div>
+          <div class="links">
+            <a href="https://pub.dev/packages/smart_signature">pub.dev</a>
+            <a href="https://github.com/Umar888/smart_signature">GitHub</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h2>Hi, I'm Umar</h2>
+    <p class="section-lede">I build mobile apps for a living and publish the pieces I wish already existed.</p>
+    <div class="about">
+      <div class="card">
+        <h3>What I work on</h3>
+        <ul>
+          <li>Flutter apps and packages, from custom painters to fragment shaders</li>
+          <li>Native Android in Kotlin and Java with Jetpack Compose</li>
+          <li>React Native apps with performance-sensitive UI</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Get in touch</h3>
+        <p>Bug reports and feature requests are welcome on each package's GitHub issues. For anything else, reach me at <a href="mailto:umarghaffar88@gmail.com">umarghaffar88@gmail.com</a> or on <a href="https://github.com/Umar888">GitHub</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Umar Ghaffar · MIT licensed packages</span>
+    <span><a href="https://pub.dev/publishers/umarghaffar.is-a.dev/packages">pub.dev</a> · <a href="https://github.com/Umar888">GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) root.dataset.theme = saved;
+  } catch (e) {}
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        btn.textContent = 'Copied';
+      } catch (e) {
+        btn.textContent = 'Press ⌘C';
+      }
+      setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+    });
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
