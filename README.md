@@ -9,5 +9,7 @@ Open source Flutter packages featured on the site:
 - [scroll_edge_blur](https://pub.dev/packages/scroll_edge_blur)
 - [liquid_glass_navigation](https://pub.dev/packages/liquid_glass_navigation)
 - [smart_signature](https://pub.dev/packages/smart_signature)
+- [secure_vault](https://pub.dev/packages/secure_vault)
+- [rolling_digits](https://pub.dev/packages/rolling_digits)
 
 Publisher: [umarghaffar.is-a.dev](https://pub.dev/publishers/umarghaffar.is-a.dev/packages) on pub.dev. Domain via [is-a.dev](https://github.com/is-a-dev/register).
