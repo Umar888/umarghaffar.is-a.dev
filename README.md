@@ -11,5 +11,6 @@ Open source Flutter packages featured on the site:
 - [smart_signature](https://pub.dev/packages/smart_signature)
 - [secure_vault](https://pub.dev/packages/secure_vault)
 - [rolling_digits](https://pub.dev/packages/rolling_digits)
+- [app_lock](https://pub.dev/packages/app_lock)
 
 Publisher: [umarghaffar.is-a.dev](https://pub.dev/publishers/umarghaffar.is-a.dev/packages) on pub.dev. Domain via [is-a.dev](https://github.com/is-a-dev/register).
